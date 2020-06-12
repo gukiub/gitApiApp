@@ -1,34 +1,31 @@
 package com.example.gitapi.service.repository
 
-import android.app.DatePickerDialog
 import android.content.Context
 import com.example.gitapi.R
 import com.example.gitapi.service.constants.UserConstants
 import com.example.gitapi.service.listener.ApiListener
 import com.example.gitapi.service.model.RepoModel
-import com.example.gitapi.service.model.UserModel
+import com.example.gitapi.service.repository.local.SecurityPreferences
 import com.example.gitapi.service.repository.remote.RetrofitClient
 import com.example.gitapi.service.repository.remote.UserService
 import com.google.gson.Gson
-import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
 
-class UserRepository(val context: Context) {
+class ReposRepository(val context: Context) {
 
     private val mRemote = RetrofitClient.createService(UserService::class.java)
+    private var mSharedPreferences = SecurityPreferences(context)
 
-    fun list(search: String, listener: ApiListener<UserModel>){
-        val call: Call<UserModel> = mRemote.get(search)
-        call.enqueue(object : Callback<UserModel>{
-            override fun onFailure(call: Call<UserModel>, t: Throwable) {
+    fun list(listener: ApiListener<List<RepoModel>>){
+        val call: Call<List<RepoModel>> = mRemote.list(mSharedPreferences.get(UserConstants.SHARED.SEARCH_KEY))
+        call.enqueue(object : Callback<List<RepoModel>> {
+            override fun onFailure(call: Call<List<RepoModel>>, t: Throwable) {
                 listener.onFailure(context.getString(R.string.unexpected_error))
             }
 
-            override fun onResponse(call: Call<UserModel>, response: Response<UserModel>) {
+            override fun onResponse(call: Call<List<RepoModel>>, response: Response<List<RepoModel>>) {
                 if (response.code() != UserConstants.HTTP.SUCCESS) {
                     val validation = Gson().fromJson(response.errorBody()!!.string(), String::class.java)
                     listener.onFailure(validation)
@@ -39,5 +36,4 @@ class UserRepository(val context: Context) {
 
         })
     }
-
 }

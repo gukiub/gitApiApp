@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">git api</string>
     <string name="unexpected_error">Ocorreu um erro inesperado.</string>
+    <string name="pesquisar">Pesquisar</string>
+    <string name="github_api">Github Api</string>
+    <string name="ex_nickname">Ex: NickName</string>
 </resources>

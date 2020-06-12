@@ -8,7 +8,7 @@ class RetrofitClient private constructor(){
 
     companion object{
         private lateinit var retrofit: Retrofit
-        private val baseUrl = "https://api.github.com/"
+        private const val baseUrl = "https://api.github.com/"
 
 
         private fun getRetrofitInstance(): Retrofit {
