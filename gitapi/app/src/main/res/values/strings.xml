@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">git api</string>
+    <string name="unexpected_error">Ocorreu um erro inesperado.</string>
+</resources>
