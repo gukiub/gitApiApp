@@ -2,6 +2,7 @@ package com.example.gitapi.service.repository.local
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.example.gitapi.service.model.RepoModel
 
 class SecurityPreferences(context: Context) {
 

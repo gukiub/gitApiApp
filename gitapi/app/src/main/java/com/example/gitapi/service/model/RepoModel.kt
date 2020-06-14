@@ -26,4 +26,7 @@ class RepoModel {
     @SerializedName("created_at")
     var date: String = ""
 
+    @SerializedName("html_url")
+    var url: String = ""
+
 }

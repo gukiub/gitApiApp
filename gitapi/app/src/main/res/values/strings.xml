@@ -4,4 +4,11 @@
     <string name="pesquisar">Pesquisar</string>
     <string name="github_api">Github Api</string>
     <string name="ex_nickname">Ex: NickName</string>
+    <string name="user_not_found">usuario não encontrado</string>
+    <string name="forbidden">Limite de pesquisas atingido, tente novamente em alguns minutos.</string>
+    <string name="repo_info">Informações</string>
+    <string name="lbl_desc">Descrição:</string>
+    <string name="txt_desc">TextView</string>
+    <string name="desc_img_git">Clique na imagem acima para abrir no github</string>
+    <string name="_0">0</string>
 </resources>

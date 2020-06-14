@@ -29,11 +29,22 @@ class UserRepository(val context: Context) {
             }
 
             override fun onResponse(call: Call<UserModel>, response: Response<UserModel>) {
-                if (response.code() != UserConstants.HTTP.SUCCESS) {
-                    val validation = Gson().fromJson(response.errorBody()!!.string(), String::class.java)
-                    listener.onFailure(validation)
-                } else {
-                    response.body()?.let { listener.onSuccess(it) }
+                when {
+                    response.code() == UserConstants.HTTP.SUCCESS -> {
+                        response.body()?.let { listener.onSuccess(it) }
+                    }
+                    response.code() == UserConstants.HTTP.NOTFOUND -> {
+                        val validation = context.getString(R.string.user_not_found)
+                        listener.onFailure(validation)
+                    }
+                    response.code() == UserConstants.HTTP.FORBIDDEN -> {
+                        val validation = context.getString(R.string.forbidden)
+                        listener.onFailure(validation)
+                    }
+                    else -> {
+                        val validation = context.getString(R.string.unexpected_error)
+                        listener.onFailure(validation)
+                    }
                 }
             }
 

@@ -1,22 +1,23 @@
 package com.example.gitapi.viewmodel
 
+
 import android.app.Application
-import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.gitapi.service.constants.UserConstants
 import com.example.gitapi.service.listener.ApiListener
 import com.example.gitapi.service.listener.ValidationListener
 import com.example.gitapi.service.model.RepoModel
-import com.example.gitapi.service.model.UserModel
 import com.example.gitapi.service.repository.ReposRepository
-import com.example.gitapi.service.repository.UserRepository
+import com.example.gitapi.service.repository.local.SecurityPreferences
 
 
 class RepositoriesViewModel(application: Application) : AndroidViewModel(application) {
 
     private val mRepository = ReposRepository(application)
-    private val mUserRepository = UserRepository(application)
+
+    private var mSharedPreferences = SecurityPreferences(application)
 
     private val mList = MutableLiveData<List<RepoModel>>()
     var repos: LiveData<List<RepoModel>> = mList
@@ -34,6 +35,9 @@ class RepositoriesViewModel(application: Application) : AndroidViewModel(applica
        val listener = object : ApiListener<List<RepoModel>>{
             override fun onSuccess(model: List<RepoModel>) {
                 mList.value = model
+
+                mImage.value = mSharedPreferences.get(UserConstants.SHARED.IMG_AVATAR)
+                mName.value = mSharedPreferences.get(UserConstants.SHARED.NAME)
             }
 
             override fun onFailure(str: String) {
@@ -45,18 +49,11 @@ class RepositoriesViewModel(application: Application) : AndroidViewModel(applica
         mRepository.list(listener)
     }
 
-    fun user(){
-        object : ApiListener<UserModel>{
-            override fun onSuccess(model: UserModel) {
-                mImage.value = model.avatarUrl
-                mName.value = model.name
-            }
 
-            override fun onFailure(str: String) {
-                Toast.makeText(getApplication(), str, Toast.LENGTH_SHORT).show()
-            }
-        }
+    fun limparSessao(){
+        mSharedPreferences.remove(UserConstants.SHARED.SEARCH_KEY)
+        mSharedPreferences.remove(UserConstants.SHARED.IMG_AVATAR)
+        mSharedPreferences.remove(UserConstants.SHARED.NAME)
     }
-
 
 }
