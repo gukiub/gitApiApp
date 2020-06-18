@@ -7,6 +7,21 @@
         <item name="colorAccent">@color/colorGrayText</item>
     </style>
 
+    <style name="button_rounded">
+        <item name="android:background">@drawable/shape_button</item>
+        <item name="android:drawableStart">@drawable/ic_search</item>
+        <item name="android:paddingStart">15dp</item>
+        <item name="android:paddingEnd">15dp</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
 </resources>

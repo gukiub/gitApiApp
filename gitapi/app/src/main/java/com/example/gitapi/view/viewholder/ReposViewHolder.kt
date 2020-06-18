@@ -27,5 +27,7 @@ class ReposViewHolder(itemView: View, val listener: ReposListener) : RecyclerVie
         itemView.setOnClickListener{
             listener.onListClick(repo.id, repo.name, repo.desc, repo.stars, repo.forks, repo.issues, repo.url, repo.date)
         }
+
+
     }
 }

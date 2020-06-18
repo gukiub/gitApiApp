@@ -17,11 +17,17 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
 
-class UserRepository(val context: Context) {
+class UserRepository(val context: Context): BaseRepository(context) {
 
     private val mRemote = RetrofitClient.createService(UserService::class.java)
 
     fun list(search: String, listener: ApiListener<UserModel>){
+
+        if (!isConnectionAvaliable(context)){
+            listener.onFailure(context.getString(R.string.internet_required))
+            return
+        }
+
         val call: Call<UserModel> = mRemote.get(search)
         call.enqueue(object : Callback<UserModel>{
             override fun onFailure(call: Call<UserModel>, t: Throwable) {

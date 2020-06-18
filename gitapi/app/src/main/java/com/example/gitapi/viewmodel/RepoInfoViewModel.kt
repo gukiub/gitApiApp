@@ -15,7 +15,14 @@ class RepoInfoViewModel(application: Application) : AndroidViewModel(application
     private val mRepo = MutableLiveData<RepoModel>()
     var repo: LiveData<RepoModel> = mRepo
 
+    private val mList = MutableLiveData<ArrayList<RepoModel>>()
+    var list: LiveData<ArrayList<RepoModel>> = mList
+
     private val mdesc = MutableLiveData<String>()
     var desc: LiveData<String> = mdesc
+
+//    fun listdb(){
+//        mList.value = mRepository.list()
+//    }
 
 }

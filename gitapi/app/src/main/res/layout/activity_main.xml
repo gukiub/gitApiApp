@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:backgroundTint="@color/white"
         android:ems="10"
@@ -28,13 +28,11 @@
 
     <Button
         android:id="@+id/button_search"
+        style="@style/button_rounded"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/shape_button"
-        android:drawableStart="@drawable/ic_search"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/white"
         android:text="@string/pesquisar"
         app:layout_constraintEnd_toEndOf="@+id/editRepo"
         app:layout_constraintStart_toStartOf="@+id/editRepo"
@@ -63,4 +61,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

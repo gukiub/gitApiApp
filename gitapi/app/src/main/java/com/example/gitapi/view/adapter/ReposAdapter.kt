@@ -4,7 +4,9 @@ import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gitapi.R
 import com.example.gitapi.service.constants.UserConstants
@@ -16,9 +18,11 @@ import com.example.gitapi.view.viewholder.ReposViewHolder
 
 class ReposAdapter : RecyclerView.Adapter<ReposViewHolder>(){
 
-    private var mList: List<RepoModel> = arrayListOf()
+    private var mList: ArrayList<RepoModel> = arrayListOf()
     private lateinit var mListener: ReposListener
-
+    var page = 1
+    var isLoading: Boolean = false
+    val limit = 10
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReposViewHolder{
@@ -38,9 +42,17 @@ class ReposAdapter : RecyclerView.Adapter<ReposViewHolder>(){
         holder.bindData(mList[position])
     }
 
-    fun updateList(list: List<RepoModel>){
-        mList = list
-        notifyDataSetChanged()
+
+    class NumberViewHolder(v: View) : RecyclerView.ViewHolder(v){
+//        val number = v.findViewById<>()
+    }
+
+    fun updateList(mList: ArrayList<RepoModel>){
+//        val number =
+        var size = this.mList.size
+        this.mList.addAll(mList)
+        var sizeNew = this.mList.size
+        notifyItemRangeChanged(size, sizeNew)
     }
 
 }

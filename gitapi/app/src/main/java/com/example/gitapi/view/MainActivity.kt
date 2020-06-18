@@ -3,11 +3,11 @@ package com.example.gitapi.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.gitapi.R
-import com.example.gitapi.service.constants.UserConstants
 import com.example.gitapi.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         mViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+
 
         if (supportActionBar != null) {
             supportActionBar!!.hide()

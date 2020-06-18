@@ -5,12 +5,14 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gitapi.service.constants.UserConstants
 import com.example.gitapi.service.listener.ApiListener
 import com.example.gitapi.service.listener.ValidationListener
 import com.example.gitapi.service.model.RepoModel
 import com.example.gitapi.service.repository.ReposRepository
 import com.example.gitapi.service.repository.local.SecurityPreferences
+import com.example.gitapi.view.adapter.PaginationScrollListener
 
 
 class RepositoriesViewModel(application: Application) : AndroidViewModel(application) {
@@ -19,8 +21,8 @@ class RepositoriesViewModel(application: Application) : AndroidViewModel(applica
 
     private var mSharedPreferences = SecurityPreferences(application)
 
-    private val mList = MutableLiveData<List<RepoModel>>()
-    var repos: LiveData<List<RepoModel>> = mList
+    private val mList = MutableLiveData<ArrayList<RepoModel>>()
+        var repos: LiveData<ArrayList<RepoModel>> = mList
 
     private val mImage = MutableLiveData<String>()
     var image: LiveData<String> = mImage
@@ -31,9 +33,11 @@ class RepositoriesViewModel(application: Application) : AndroidViewModel(applica
     private val mValidation = MutableLiveData<ValidationListener>()
     var validation: LiveData<ValidationListener> = mValidation
 
-    fun list(){
-       val listener = object : ApiListener<List<RepoModel>>{
-            override fun onSuccess(model: List<RepoModel>) {
+
+
+    fun list(page: Int){
+       val listener = object : ApiListener<ArrayList<RepoModel>>{
+            override fun onSuccess(model: ArrayList<RepoModel>) {
                 mList.value = model
 
                 mImage.value = mSharedPreferences.get(UserConstants.SHARED.IMG_AVATAR)
@@ -44,10 +48,10 @@ class RepositoriesViewModel(application: Application) : AndroidViewModel(applica
                 mList.value = arrayListOf()
                 mValidation.value = ValidationListener(str)
             }
-
         }
-        mRepository.list(listener)
+        mRepository.list(listener, page)
     }
+
 
 
     fun limparSessao(){

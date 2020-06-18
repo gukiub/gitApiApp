@@ -27,6 +27,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 mValidation.value = ValidationListener()
                 mSharedPreferences.store(UserConstants.SHARED.SEARCH_KEY, model.login)
                 mSharedPreferences.store(UserConstants.SHARED.IMG_AVATAR, model.avatarUrl)
+
                 if (model.name != null) {
                     mSharedPreferences.store(UserConstants.SHARED.NAME, model.name)
                 } else {

@@ -3,18 +3,24 @@ package com.example.gitapi.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.text.BoringLayout
+import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.example.gitapi.R
 import com.example.gitapi.service.constants.UserConstants
 import com.example.gitapi.service.listener.ApiListener
 import com.example.gitapi.service.listener.ReposListener
+import com.example.gitapi.service.model.RepoModel
 import com.example.gitapi.service.model.UserModel
 import com.example.gitapi.service.repository.local.SecurityPreferences
+import com.example.gitapi.view.adapter.PaginationScrollListener
 import com.example.gitapi.view.adapter.ReposAdapter
 import com.example.gitapi.viewmodel.RepositoriesViewModel
 import com.squareup.picasso.Picasso
@@ -22,10 +28,13 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_repo.*
 
 class RepositoriesActivity : AppCompatActivity() {
-
     private lateinit var mViewModel: RepositoriesViewModel
     private lateinit var mListener: ReposListener
     private var mAdapter = ReposAdapter()
+    private var page: Int = 1
+
+    private var isLastPage: Boolean = false
+    private var isLoading: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +44,22 @@ class RepositoriesActivity : AppCompatActivity() {
         val recycler = findViewById<RecyclerView>(R.id.repoRecycler)
         recycler.layoutManager = LinearLayoutManager(applicationContext)
         recycler.adapter = mAdapter
+
+//        recycler!!.addOnScrollListener(object : PaginationScrollListener(LinearLayoutManager(applicationContext)){
+//            override fun isLastPage(): Boolean {
+//                return isLastPage()
+//            }
+//
+//            override fun isLoading(): Boolean {
+//                return isLoading()
+//            }
+//
+//            override fun loadMoreItems() {
+//                isLoading = true
+////                getMoreItems()
+//            }
+//
+//        })
 
         observe()
 
@@ -56,10 +81,17 @@ class RepositoriesActivity : AppCompatActivity() {
         }
     }
 
+//    fun getMoreItems(mList: ArrayList<RepoModel>){
+//        page++
+//        mViewModel.list(page)
+//        isLoading = false
+//        mAdapter.updateList(mList)
+//    }
+
     override fun onResume() {
         super.onResume()
         mAdapter.attachListener(mListener)
-        mViewModel.list()
+        mViewModel.list(page)
     }
 
     override fun onDestroy() {

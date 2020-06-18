@@ -34,6 +34,7 @@ class RepoInfoActivity : AppCompatActivity() {
         extras = intent.extras!!.get(UserConstants.BUNDLE.STAR)
         txt_star.text = extras.toString()
 
+
         extras = intent.extras!!.get(UserConstants.BUNDLE.FORK)
         txt_fork.text = extras.toString()
 

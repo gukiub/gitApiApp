@@ -9,6 +9,17 @@
     <string name="repo_info">Informações</string>
     <string name="lbl_desc">Descrição:</string>
     <string name="txt_desc">TextView</string>
-    <string name="desc_img_git">Clique na imagem acima para abrir no github</string>
+    <string name="desc_img_git">Clique no botão acima para abrir no github</string>
     <string name="_0">0</string>
+    <string name="internet_required">Conexão necessária para uso da aplicação</string>
+    <string name="ir_para_o_github">Ir para o Github</string>
+    <string name="title_activity_main2">MainActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>

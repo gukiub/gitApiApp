@@ -15,8 +15,8 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".view.RepoInfoActivity"
-            android:parentActivityName=".view.RepositoriesActivity"
             android:label="@string/repo_info"
+            android:parentActivityName=".view.RepositoriesActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
