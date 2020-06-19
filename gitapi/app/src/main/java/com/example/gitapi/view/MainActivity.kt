@@ -7,9 +7,13 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.gitapi.R
 import com.example.gitapi.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,29 +25,32 @@ class MainActivity : AppCompatActivity() {
 
         mViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
-
         if (supportActionBar != null) {
             supportActionBar!!.hide()
         }
 
-        observe()
+//        observe()
 
-        button_search.setOnClickListener{
-            val search = editRepo.text.toString()
-            mViewModel.search(search)
-        }
+//        button_search.setOnClickListener {
+//            val search = editRepo.text.toString()
+//            mViewModel.search(search)
+//        }
+//    }
+//
+//    private fun observe() {
+//        mViewModel.validation.observe(this, Observer {
+//            if (it.success()) {
+////                startActivity(Intent(this, RepositoriesActivity::class.java))
+//            } else {
+//                Toast.makeText(this, it.failure(), Toast.LENGTH_SHORT).show()
+//            }
+//        })
+
     }
 
-    private fun observe(){
-        mViewModel.validation.observe(this, Observer {
-            if (it.success()) {
-                startActivity(Intent(this, RepositoriesActivity::class.java))
-            } else {
-                Toast.makeText(this, it.failure(), Toast.LENGTH_SHORT).show()
-            }
-        })
 
+    fun onClick(){
+        Toast.makeText(this, "teste", Toast.LENGTH_SHORT).show()
     }
-
 
 }
