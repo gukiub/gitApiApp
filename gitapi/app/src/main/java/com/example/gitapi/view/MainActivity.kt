@@ -29,6 +29,10 @@ class MainActivity : AppCompatActivity() {
             supportActionBar!!.hide()
         }
 
+        supportActionBar?.let { toolbar ->
+            toolbar.hide()
+        }
+
 //        observe()
 
 //        button_search.setOnClickListener {
@@ -48,9 +52,5 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
-    fun onClick(){
-        Toast.makeText(this, "teste", Toast.LENGTH_SHORT).show()
-    }
 
 }

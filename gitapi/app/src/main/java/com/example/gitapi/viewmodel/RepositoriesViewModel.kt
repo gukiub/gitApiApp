@@ -54,10 +54,4 @@ class RepositoriesViewModel(application: Application) : AndroidViewModel(applica
 
 
 
-    fun limparSessao(){
-        mSharedPreferences.remove(UserConstants.SHARED.SEARCH_KEY)
-        mSharedPreferences.remove(UserConstants.SHARED.IMG_AVATAR)
-        mSharedPreferences.remove(UserConstants.SHARED.NAME)
-    }
-
 }
