@@ -5,4 +5,8 @@ class RepoConstantants private constructor(){
         const val MAX_PER_PAGE = 100
     }
 
+    object BUNDLE{
+        const val OBJECT_REPO = "repo"
+    }
+
 }

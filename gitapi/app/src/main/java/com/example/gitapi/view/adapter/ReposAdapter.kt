@@ -20,9 +20,6 @@ class ReposAdapter : RecyclerView.Adapter<ReposViewHolder>(){
 
     private var mList: ArrayList<RepoModel> = arrayListOf()
     private lateinit var mListener: ReposListener
-    var page = 1
-    var isLoading: Boolean = false
-    val limit = 10
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReposViewHolder{
@@ -43,15 +40,10 @@ class ReposAdapter : RecyclerView.Adapter<ReposViewHolder>(){
     }
 
 
-    class NumberViewHolder(v: View) : RecyclerView.ViewHolder(v){
-//        val number = v.findViewById<>()
-    }
-
     fun updateList(mList: ArrayList<RepoModel>){
-//        val number =
-        var size = this.mList.size
+        val size = this.mList.size
         this.mList.addAll(mList)
-        var sizeNew = this.mList.size
+        val sizeNew = this.mList.size
         notifyItemRangeChanged(size, sizeNew)
     }
 

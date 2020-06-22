@@ -25,32 +25,8 @@ class MainActivity : AppCompatActivity() {
 
         mViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
-        if (supportActionBar != null) {
-            supportActionBar!!.hide()
-        }
-
         supportActionBar?.let { toolbar ->
             toolbar.hide()
         }
-
-//        observe()
-
-//        button_search.setOnClickListener {
-//            val search = editRepo.text.toString()
-//            mViewModel.search(search)
-//        }
-//    }
-//
-//    private fun observe() {
-//        mViewModel.validation.observe(this, Observer {
-//            if (it.success()) {
-////                startActivity(Intent(this, RepositoriesActivity::class.java))
-//            } else {
-//                Toast.makeText(this, it.failure(), Toast.LENGTH_SHORT).show()
-//            }
-//        })
-
     }
-
-
 }

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.example.gitapi.view.MainFragment"
+        android:name="com.example.gitapi.view.fragments.MainFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_main">
 
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.example.gitapi.view.RepositoriesFragment"
+        android:name="com.example.gitapi.view.fragments.RepositoriesFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_repositories">
 
@@ -27,7 +27,7 @@
     </fragment>
     <fragment
         android:id="@+id/ThirdFragment"
-        android:name="com.example.gitapi.view.RepoInfoFragment"
+        android:name="com.example.gitapi.view.fragments.RepoInfoFragment"
         android:label="third_fragment_label"
         tools:layout="@layout/fragment_repo_info" />
 </navigation>

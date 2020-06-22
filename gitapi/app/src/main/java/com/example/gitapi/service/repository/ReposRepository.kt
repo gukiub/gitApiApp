@@ -18,7 +18,6 @@ import retrofit2.Response
 class ReposRepository(val context: Context): BaseRepository(context){
 
     private val mRemote = RetrofitClient.createService(UserService::class.java)
-//    private val mRepoDatabase = RepositoriesDatabase.getDatabase(context).repoDAO()
     private var mSharedPreferences = SecurityPreferences(context)
 
     fun list(listener: ApiListener<ArrayList<RepoModel>>, page: Int){
@@ -45,10 +44,4 @@ class ReposRepository(val context: Context): BaseRepository(context){
 
         })
     }
-
-//    fun list() = mRepoDatabase.list()
-
-
-
-
 }
