@@ -19,15 +19,5 @@
         android:id="@+id/SecondFragment"
         android:name="com.example.gitapi.view.fragments.RepositoriesFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_repositories">
-
-        <action
-            android:id="@+id/action_SecondFragment_to_repoInfoActivity"
-            app:destination="@id/ThirdFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/ThirdFragment"
-        android:name="com.example.gitapi.view.fragments.RepoInfoFragment"
-        android:label="third_fragment_label"
-        tools:layout="@layout/fragment_repo_info" />
+        tools:layout="@layout/fragment_repositories"/>
 </navigation>

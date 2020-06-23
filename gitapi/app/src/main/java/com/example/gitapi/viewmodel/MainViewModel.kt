@@ -31,8 +31,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val mList = MutableLiveData<ArrayList<RepoModel>>()
     var list: LiveData<ArrayList<RepoModel>> = mList
 
-    private val mdesc = MutableLiveData<String>()
-    var desc: LiveData<String> = mdesc
+    private val mDesc = MutableLiveData<String>()
+    var desc: LiveData<String> = mDesc
 
     private val mImage = MutableLiveData<String>()
     var image: LiveData<String> = mImage
@@ -40,35 +40,33 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val mName = MutableLiveData<String>()
     var name: LiveData<String> = mName
 
+    private var user = ""
 
     fun search(search: String){
         mUserRepository.list(search, object : ApiListener<UserModel>{
             override fun onSuccess(model: UserModel) {
                 mValidation.value = ValidationListener()
 
-                mName.value = model.name?.let { "nothing to show" }
+                mName.value = model.name.let { "nothing to show" }
+
+                mImage.value = model.avatarUrl
+                mName.value = model.name
 
                 RetrofitClient.addHeader(model.login)
-
             }
 
             override fun onFailure(str: String){
                 mValidation.value = ValidationListener(str)
             }
         })
+        this.user = search
     }
-
-
-
 
 
     fun list(page: Int){
         val listener = object : ApiListener<ArrayList<RepoModel>>{
             override fun onSuccess(model: ArrayList<RepoModel>) {
                 mList.value = model
-
-                mImage.value = mSharedPreferences.get(UserConstants.SHARED.IMG_AVATAR)
-                mName.value = mSharedPreferences.get(UserConstants.SHARED.NAME)
             }
 
             override fun onFailure(str: String) {
@@ -76,7 +74,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 mValidation.value = ValidationListener(str)
             }
         }
-        mRepository.list(listener, page)
+        mRepository.list(user ,listener, page)
     }
 
 

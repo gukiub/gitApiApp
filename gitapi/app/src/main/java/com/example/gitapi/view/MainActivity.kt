@@ -3,7 +3,9 @@ package com.example.gitapi.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -11,9 +13,11 @@ import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.gitapi.R
+import com.example.gitapi.view.fragments.MainFragment
 import com.example.gitapi.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_main.*
+import kotlinx.android.synthetic.main.fragment_repositories.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,5 +32,15 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.let { toolbar ->
             toolbar.hide()
         }
+
     }
+
+//    override fun onBackPressed() {
+//        super.onBackPressed()
+//        if (supportFragmentManager.backStackEntryCount > 0){
+//            supportFragmentManager.popBackStackImmediate()
+//        } else {
+//            super.onBackPressed()
+//        }
+//    }
 }

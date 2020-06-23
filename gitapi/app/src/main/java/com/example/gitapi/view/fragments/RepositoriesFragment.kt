@@ -5,8 +5,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.Toolbar
+import androidx.annotation.ColorInt
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.KeyEventDispatcher
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.replace
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,15 +23,12 @@ import com.example.gitapi.R
 import com.example.gitapi.service.constants.RepoConstantants
 import com.example.gitapi.service.listener.ReposListener
 import com.example.gitapi.service.model.RepoInfoModel
+import com.example.gitapi.view.MainActivity
 import com.example.gitapi.view.RepoInfoActivity
 import com.example.gitapi.view.adapter.ReposAdapter
 import com.example.gitapi.viewmodel.MainViewModel
-import com.google.gson.Gson
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_repo.*
-
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import kotlinx.android.synthetic.main.fragment_repositories.*
 
 class RepositoriesFragment : Fragment() {
     private val mViewModel: MainViewModel by activityViewModels()
@@ -31,18 +36,10 @@ class RepositoriesFragment : Fragment() {
     private var mAdapter = ReposAdapter()
     private var page: Int = 1
 
-    private var param1: String? = null
-    private var param2: String? = null
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-
         observe()
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,19 +49,35 @@ class RepositoriesFragment : Fragment() {
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = mAdapter
 
-        mListener = object : ReposListener{
-            override fun onListClick(id: Int, name: String, desc: String, stars: Int, forks: Int, issues: Int, url: String, date: String) {
+        mListener = object : ReposListener {
+            override fun onListClick(
+                id: Int,
+                name: String,
+                desc: String,
+                stars: Int,
+                forks: Int,
+                issues: Int,
+                url: String,
+                date: String
+            ) {
                 val intent = Intent(context, RepoInfoActivity::class.java)
-//                val bundle = Bundle()
+                val bundle = Bundle()
                 val repo = RepoInfoModel(id, name, desc, stars, forks, issues, url, date)
-//                bundle.putSerializable(RepoConstantants.BUNDLE.OBJECT_REPO, repo)
+                bundle.putSerializable(RepoConstantants.BUNDLE.OBJECT_REPO, repo)
 
-                intent.putExtra(RepoConstantants.BUNDLE.OBJECT_REPO, repo)
-                if(intent.hasExtra(RepoConstantants.BUNDLE.OBJECT_REPO)) {
-                    startActivity(intent)
-                }
+                intent.putExtras(bundle)
+                startActivity(intent)
             }
         }
+//        (activity as AppCompatActivity).setSupportActionBar(toolbar)
+        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
+        toolbar.title = "Repositórios"
+        toolbar.setTitleTextColor(resources.getColor(R.color.white))
+        toolbar.titleMarginStart = 50
+        toolbar.setNavigationOnClickListener {
+            activity?.finish()
+        }
+
     }
 
     override fun onResume() {
@@ -77,13 +90,13 @@ class RepositoriesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         return inflater.inflate(R.layout.fragment_repositories, container, false)
     }
 
-
-    private fun observe(){
+    private fun observe() {
         mViewModel.list.observe(this, Observer {
-            if (it.count() > 0){
+            if (it.count() > 0) {
                 mAdapter.updateList(it)
             }
         })

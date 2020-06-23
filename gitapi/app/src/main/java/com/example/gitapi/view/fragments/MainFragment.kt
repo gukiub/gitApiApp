@@ -9,19 +9,18 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.gitapi.R
 import com.example.gitapi.viewmodel.MainViewModel
+import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.fragment_main.*
 
 
 class MainFragment : Fragment() {
 
     private val mViewModel: MainViewModel by activityViewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +32,6 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         observe()
 
         view.findViewById<Button>(R.id.button_search).setOnClickListener {
@@ -45,7 +43,7 @@ class MainFragment : Fragment() {
     private fun observe() {
         mViewModel.validation.observe(viewLifecycleOwner, Observer {
             if (it.success()) {
-                findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+                findNavController(nav_host_fragment).navigate(R.id.action_FirstFragment_to_SecondFragment)
             } else {
                 Toast.makeText(context, it.failure(), Toast.LENGTH_SHORT).show()
             }

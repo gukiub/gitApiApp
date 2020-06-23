@@ -4,10 +4,7 @@ import com.example.gitapi.service.constants.RepoConstantants
 import com.example.gitapi.service.model.RepoModel
 import com.example.gitapi.service.model.UserModel
 import retrofit2.Call
-import retrofit2.http.Field
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface UserService {
     @GET("users/{user}")
@@ -16,4 +13,6 @@ interface UserService {
     @GET("users/{user}/repos?per_page=${RepoConstantants.SHARED.MAX_PER_PAGE}&")
     fun list(@Path("user", encoded = true) user: String,
              @Query("page", encoded = true) pages: Int): Call<ArrayList<RepoModel>>
+
+
 }

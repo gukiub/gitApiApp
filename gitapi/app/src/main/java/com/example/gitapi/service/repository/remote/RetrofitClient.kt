@@ -1,5 +1,6 @@
 package com.example.gitapi.service.repository.remote
 
+import com.example.gitapi.service.constants.RepoConstantants
 import com.example.gitapi.service.constants.UserConstants
 import com.example.gitapi.service.repository.local.SecurityPreferences
 import okhttp3.OkHttpClient
@@ -12,6 +13,7 @@ class RetrofitClient private constructor(){
         private lateinit var retrofit: Retrofit
         private const val baseUrl = "https://api.github.com/"
         private var user = ""
+        private var personalToken = "4487530c142f29639fc13d43395e0186c864ea21"
 
         private fun getRetrofitInstance(): Retrofit {
             val httpClient = OkHttpClient.Builder()
@@ -19,7 +21,8 @@ class RetrofitClient private constructor(){
             httpClient.addInterceptor{ chain ->
                 val request = chain.request()
                     .newBuilder()
-                    .addHeader(UserConstants.SHARED.NAME, user)
+//                    .addHeader(RepoConstantants.SHARED.USER, user)
+//                    .addHeader(RepoConstantants.SHARED.TOKEN, personalToken)
                     .build()
                 chain.proceed(request)
             }
