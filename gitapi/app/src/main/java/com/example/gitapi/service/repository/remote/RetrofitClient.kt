@@ -21,8 +21,8 @@ class RetrofitClient private constructor(){
             httpClient.addInterceptor{ chain ->
                 val request = chain.request()
                     .newBuilder()
-//                    .addHeader(RepoConstantants.SHARED.USER, user)
-//                    .addHeader(RepoConstantants.SHARED.TOKEN, personalToken)
+                    .addHeader(RepoConstantants.SHARED.USER, user)
+                    .addHeader(RepoConstantants.SHARED.TOKEN, personalToken)
                     .build()
                 chain.proceed(request)
             }
