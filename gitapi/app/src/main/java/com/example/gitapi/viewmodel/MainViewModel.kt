@@ -19,7 +19,6 @@ import retrofit2.Callback
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val mUserRepository = UserRepository(application)
-    private val mSharedPreferences = SecurityPreferences(application)
     private val mValidation = MutableLiveData<ValidationListener>()
     var validation: LiveData<ValidationListener> = mValidation
 

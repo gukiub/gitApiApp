@@ -3,6 +3,7 @@ package com.example.gitapi.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.widget.ImageView
@@ -29,18 +30,12 @@ class MainActivity : AppCompatActivity() {
 
         mViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
-        supportActionBar?.let { toolbar ->
-            toolbar.hide()
-        }
 
     }
 
-//    override fun onBackPressed() {
-//        super.onBackPressed()
-//        if (supportFragmentManager.backStackEntryCount > 0){
-//            supportFragmentManager.popBackStackImmediate()
-//        } else {
-//            super.onBackPressed()
-//        }
-//    }
+    override fun onBackPressed() {
+        super.onBackPressed()
+        Log.d("Button_back", "botão voltar pressionado")
+    }
+
 }

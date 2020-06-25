@@ -2,6 +2,7 @@ package com.example.gitapi.view.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.replace
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -35,12 +37,21 @@ class RepositoriesFragment : Fragment() {
     private lateinit var mListener: ReposListener
     private var mAdapter = ReposAdapter()
     private var page: Int = 1
+    private val repoFragment = "RepositoriesFragment"
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         observe()
 
     }
+
+    companion object{
+        fun newInstance(): Fragment{
+            return RepositoriesFragment()
+        }
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -69,15 +80,30 @@ class RepositoriesFragment : Fragment() {
                 startActivity(intent)
             }
         }
-//        (activity as AppCompatActivity).setSupportActionBar(toolbar)
-        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
+
+        (activity as AppCompatActivity).setSupportActionBar(toolbar)
+        val customToolbar = (activity as AppCompatActivity).supportActionBar
+
+        customToolbar?.let {
+            it.setDisplayHomeAsUpEnabled(true)
+            it.setDisplayShowHomeEnabled(true)
+            it.setHomeButtonEnabled(true)
+        }
+
+
         toolbar.title = "Repositórios"
         toolbar.setTitleTextColor(resources.getColor(R.color.white))
         toolbar.titleMarginStart = 50
-        toolbar.setNavigationOnClickListener {
-            activity?.finish()
-        }
+    }
 
+    override fun onStart() {
+        super.onStart()
+        Log.d(repoFragment, "onStart() : repo iniciado")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(repoFragment, "onDestroy() : Repo destruido")
     }
 
     override fun onResume() {
@@ -93,6 +119,7 @@ class RepositoriesFragment : Fragment() {
 
         return inflater.inflate(R.layout.fragment_repositories, container, false)
     }
+
 
     private fun observe() {
         mViewModel.list.observe(this, Observer {
