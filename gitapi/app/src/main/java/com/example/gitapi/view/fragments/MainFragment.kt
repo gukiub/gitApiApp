@@ -62,7 +62,7 @@ class MainFragment : Fragment() {
             if (it.success()) {
                 val fragment = RepositoriesFragment()
                 val fragmentTransaction = activity?.let { it.supportFragmentManager.beginTransaction() }
-                fragmentTransaction?.let { it.replace(R.id.nav_host_fragment, fragment).addToBackStack(null).commit() }
+                fragmentTransaction?.let { it.add(R.id.nav_host_fragment, fragment).addToBackStack(null).commit() }
             } else {
                 Toast.makeText(context, it.failure(), Toast.LENGTH_SHORT).show()
             }
