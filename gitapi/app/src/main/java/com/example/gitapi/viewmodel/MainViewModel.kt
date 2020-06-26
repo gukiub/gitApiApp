@@ -61,7 +61,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         this.user = search
     }
 
-
     fun list(page: Int){
         val listener = object : ApiListener<ArrayList<RepoModel>>{
             override fun onSuccess(model: ArrayList<RepoModel>) {

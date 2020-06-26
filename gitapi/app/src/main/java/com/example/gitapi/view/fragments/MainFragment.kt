@@ -10,6 +10,8 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.gitapi.R
 import com.example.gitapi.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -32,16 +34,22 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         observe()
 
+
+
         view.findViewById<Button>(R.id.button_search).setOnClickListener {
             val search = editRepo.text.toString()
             mViewModel.search(search)
         }
     }
 
+
     override fun onStart() {
         super.onStart()
         Log.d(mainFragmentConst, "onStart() : MainCriada")
+    }
 
+    override fun onResume() {
+        super.onResume()
     }
 
     override fun onDestroy() {
