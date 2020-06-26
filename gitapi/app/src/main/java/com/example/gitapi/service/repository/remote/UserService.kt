@@ -13,6 +13,4 @@ interface UserService {
     @GET("users/{user}/repos?per_page=${RepoConstantants.SHARED.MAX_PER_PAGE}&")
     fun list(@Path("user", encoded = true) user: String,
              @Query("page", encoded = true) pages: Int): Call<ArrayList<RepoModel>>
-
-
 }

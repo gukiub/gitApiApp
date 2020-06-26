@@ -46,12 +46,6 @@ class RepositoriesFragment : Fragment() {
 
     }
 
-    companion object{
-        fun newInstance(): Fragment{
-            return RepositoriesFragment()
-        }
-    }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
