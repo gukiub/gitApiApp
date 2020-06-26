@@ -3,10 +3,12 @@ package com.example.gitapi.view.fragments
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.gitapi.R
 import com.example.gitapi.service.constants.RepoConstantants
@@ -21,16 +23,11 @@ private val mDateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH)
 class RepoInfoFragment : Fragment() {
     private val mViewModel: MainViewModel by activityViewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         arguments?.let {
-            val extras =
-                it?.getSerializable(RepoConstantants.BUNDLE.OBJECT_REPO) as RepoInfoModel
+            val extras = it.getSerializable(RepoConstantants.BUNDLE.OBJECT_REPO) as RepoInfoModel
 
             txt_desc.text = extras.desc
             txt_title.text = extras.name
@@ -47,6 +44,19 @@ class RepoInfoFragment : Fragment() {
                 startActivity(openURL)
             }
         }
+
+        val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
+        (activity as AppCompatActivity).setSupportActionBar(toolbar as Toolbar)
+        val customToolbar = (activity as AppCompatActivity).supportActionBar
+
+        customToolbar?.let {
+            it.setDisplayHomeAsUpEnabled(true)
+            it.setDisplayShowHomeEnabled(true)
+            it.setHomeButtonEnabled(true)
+            it.title = "Informações"
+        }
+
+        toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
     }
 
     override fun onCreateView(
