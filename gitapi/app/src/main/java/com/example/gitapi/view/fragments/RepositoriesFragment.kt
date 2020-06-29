@@ -1,7 +1,9 @@
 package com.example.gitapi.view.fragments
 
 import android.os.Bundle
+import android.transition.Slide
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -63,17 +65,19 @@ class RepositoriesFragment : Fragment() {
 //                startActivity(intent)
 
                 val fragment = RepoInfoFragment()
+                fragment.enterTransition = Slide(Gravity.RIGHT)
+                fragment.exitTransition = Slide(Gravity.LEFT)
+
                 val bundle = Bundle()
                 val repo = RepoInfoModel(id, name, desc, stars, forks, issues, url, date)
                 bundle.putSerializable(RepoConstantants.BUNDLE.OBJECT_REPO, repo)
                 fragment.arguments = bundle
                 val fragmentTransaction = activity?.supportFragmentManager?.beginTransaction()
                 fragmentTransaction?.add(R.id.nav_host_fragment, fragment)?.addToBackStack(null)?.commit()
-
             }
         }
 
-        val toolbar = view.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
+        val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
         (activity as AppCompatActivity).setSupportActionBar(toolbar as Toolbar)
         val customToolbar = (activity as AppCompatActivity).supportActionBar
 
