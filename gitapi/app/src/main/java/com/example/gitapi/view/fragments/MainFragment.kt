@@ -41,6 +41,7 @@ class MainFragment : Fragment() {
         view.findViewById<Button>(R.id.button_search).setOnClickListener {
             val search = editRepo.text.toString()
             mViewModel.search(search)
+
         }
     }
 

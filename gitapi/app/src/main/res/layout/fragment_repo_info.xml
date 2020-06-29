@@ -118,7 +118,7 @@
         android:layout_gravity="center"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/green"
+        android:background="@drawable/custom_button"
         android:drawableStart="@drawable/ic_baseline_person_24"
         android:text="@string/ir_para_o_github"
         android:textColor="@color/white"
