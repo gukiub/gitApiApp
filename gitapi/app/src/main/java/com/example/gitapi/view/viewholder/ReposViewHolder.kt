@@ -17,7 +17,7 @@ class ReposViewHolder(itemView: View, val listener: ReposListener) : RecyclerVie
         this.mDesc.text = repo.desc
 
         if (repo.desc == null){
-            repo.desc = "nothing to show"
+            repo.desc = "No description"
         }
 
         itemView.setOnClickListener{

@@ -2,7 +2,6 @@ package com.example.gitapi.view.fragments
 
 import android.os.Bundle
 import android.transition.Slide
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +11,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gitapi.R
@@ -23,7 +21,6 @@ import com.example.gitapi.view.adapter.ReposAdapter
 import com.example.gitapi.viewmodel.MainViewModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_repositories.*
-import kotlinx.android.synthetic.main.fragment_repositories.toolbar
 
 class RepositoriesFragment : Fragment() {
     private val mViewModel: MainViewModel by activityViewModels()
@@ -38,14 +35,12 @@ class RepositoriesFragment : Fragment() {
         observe()
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val recycler = view.findViewById<RecyclerView>(R.id.repoRecycler)
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = mAdapter
-
 
         mListener = object : ReposListener {
             override fun onListClick(
@@ -74,6 +69,8 @@ class RepositoriesFragment : Fragment() {
                 fragment.arguments = bundle
                 val fragmentTransaction = activity?.supportFragmentManager?.beginTransaction()
                 fragmentTransaction?.add(R.id.nav_host_fragment, fragment)?.addToBackStack(null)?.commit()
+
+//                StringsUtil.isTotoro()
             }
         }
 
@@ -89,6 +86,10 @@ class RepositoriesFragment : Fragment() {
         }
 
         toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
+
+        mAdapter.attachListener(mListener)
+        mViewModel.list(page)
+
     }
 
     override fun onDestroy() {
@@ -102,12 +103,6 @@ class RepositoriesFragment : Fragment() {
     ): View? {
 
         return inflater.inflate(R.layout.fragment_repositories, container, false)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        mAdapter.attachListener(mListener)
-        mViewModel.list(page)
     }
 
 
@@ -127,3 +122,7 @@ class RepositoriesFragment : Fragment() {
         })
     }
 }
+
+//fun String.Companion.criar(pesquisa: String) {
+//    Log.d("repo", "Funcionou")
+//}
