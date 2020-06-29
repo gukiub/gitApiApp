@@ -1,6 +1,7 @@
 package com.example.gitapi.view.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gitapi.R
@@ -71,16 +73,23 @@ class RepositoriesFragment : Fragment() {
             }
         }
 
-//        val toolbar = view.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
+        val toolbar = view.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         (activity as AppCompatActivity).setSupportActionBar(toolbar as Toolbar)
         val customToolbar = (activity as AppCompatActivity).supportActionBar
 
         customToolbar?.let {
             it.setDisplayHomeAsUpEnabled(true)
             it.setDisplayShowHomeEnabled(true)
-            it.setHomeButtonEnabled(false)
+            it.setHomeButtonEnabled(true)
             it.title = "Repositórios"
         }
+
+        toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mViewModel.list.value?.clear()
     }
 
     override fun onCreateView(
