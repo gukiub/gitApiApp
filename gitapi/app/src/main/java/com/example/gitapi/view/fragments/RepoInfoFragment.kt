@@ -14,7 +14,8 @@ import com.example.gitapi.R
 import com.example.gitapi.service.constants.RepoConstantants
 import com.example.gitapi.service.model.RepoInfoModel
 import com.example.gitapi.viewmodel.MainViewModel
-import kotlinx.android.synthetic.main.activity_repo_info.*
+import kotlinx.android.synthetic.main.fragment_repo_info.*
+import kotlinx.android.synthetic.main.fragment_repositories.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -57,6 +58,8 @@ class RepoInfoFragment : Fragment() {
         }
 
         toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
+
+
     }
 
     override fun onCreateView(
