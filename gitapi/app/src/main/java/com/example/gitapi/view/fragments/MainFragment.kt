@@ -1,7 +1,9 @@
 package com.example.gitapi.view.fragments
 
 import android.os.Bundle
+import android.transition.Slide
 import android.util.Log
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -39,6 +41,7 @@ class MainFragment : Fragment() {
         view.findViewById<Button>(R.id.button_search).setOnClickListener {
             val search = editRepo.text.toString()
             mViewModel.search(search)
+
         }
     }
 
@@ -61,8 +64,10 @@ class MainFragment : Fragment() {
         mViewModel.validation.observe(viewLifecycleOwner, Observer {
             if (it.success()) {
                 val fragment = RepositoriesFragment()
+                fragment.enterTransition = Slide(Gravity.RIGHT)
+                fragment.exitTransition = Slide(Gravity.LEFT)
                 val fragmentTransaction = activity?.let { it.supportFragmentManager.beginTransaction() }
-                fragmentTransaction?.let { it.replace(R.id.nav_host_fragment, fragment).addToBackStack(null).commit() }
+                fragmentTransaction?.let { it.add(R.id.nav_host_fragment, fragment).addToBackStack(null).commit() }
             } else {
                 Toast.makeText(context, it.failure(), Toast.LENGTH_SHORT).show()
             }

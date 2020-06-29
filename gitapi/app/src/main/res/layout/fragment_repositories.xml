@@ -23,7 +23,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imgPerfil"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:spanCount="5" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animationView"
@@ -54,13 +55,9 @@
         app:layout_constraintStart_toStartOf="@+id/imgPerfil"
         app:layout_constraintTop_toBottomOf="@+id/imgPerfil" />
 
-    <androidx.appcompat.widget.Toolbar
+    <include
         android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
+        layout="@layout/custom_toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

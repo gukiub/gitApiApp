@@ -1,36 +1,29 @@
 package com.example.gitapi.view.fragments
 
-import android.content.Intent
 import android.os.Bundle
+import android.transition.Slide
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.Toolbar
-import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.KeyEventDispatcher
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.replace
 import androidx.lifecycle.Observer
-import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gitapi.R
 import com.example.gitapi.service.constants.RepoConstantants
 import com.example.gitapi.service.listener.ReposListener
 import com.example.gitapi.service.model.RepoInfoModel
-import com.example.gitapi.view.MainActivity
-import com.example.gitapi.view.RepoInfoActivity
 import com.example.gitapi.view.adapter.ReposAdapter
 import com.example.gitapi.viewmodel.MainViewModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_repositories.*
+import kotlinx.android.synthetic.main.fragment_repositories.toolbar
 
 class RepositoriesFragment : Fragment() {
     private val mViewModel: MainViewModel by activityViewModels()
@@ -43,7 +36,6 @@ class RepositoriesFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         observe()
-
     }
 
 
@@ -53,6 +45,7 @@ class RepositoriesFragment : Fragment() {
         val recycler = view.findViewById<RecyclerView>(R.id.repoRecycler)
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = mAdapter
+
 
         mListener = object : ReposListener {
             override fun onListClick(
@@ -65,45 +58,42 @@ class RepositoriesFragment : Fragment() {
                 url: String,
                 date: String
             ) {
-                val intent = Intent(context, RepoInfoActivity::class.java)
+//                val intent = Intent(context, RepoInfoActivity::class.java)
+
+//
+//                intent.putExtras(bundle)
+//                startActivity(intent)
+
+                val fragment = RepoInfoFragment()
+                fragment.enterTransition = Slide(Gravity.RIGHT)
+                fragment.exitTransition = Slide(Gravity.LEFT)
+
                 val bundle = Bundle()
                 val repo = RepoInfoModel(id, name, desc, stars, forks, issues, url, date)
                 bundle.putSerializable(RepoConstantants.BUNDLE.OBJECT_REPO, repo)
-
-                intent.putExtras(bundle)
-                startActivity(intent)
+                fragment.arguments = bundle
+                val fragmentTransaction = activity?.supportFragmentManager?.beginTransaction()
+                fragmentTransaction?.add(R.id.nav_host_fragment, fragment)?.addToBackStack(null)?.commit()
             }
         }
 
-        (activity as AppCompatActivity).setSupportActionBar(toolbar)
+        val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
+        (activity as AppCompatActivity).setSupportActionBar(toolbar as Toolbar)
         val customToolbar = (activity as AppCompatActivity).supportActionBar
 
         customToolbar?.let {
             it.setDisplayHomeAsUpEnabled(true)
             it.setDisplayShowHomeEnabled(true)
             it.setHomeButtonEnabled(true)
+            it.title = "Repositórios"
         }
 
-
-        toolbar.title = "Repositórios"
-        toolbar.setTitleTextColor(resources.getColor(R.color.white))
-        toolbar.titleMarginStart = 50
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Log.d(repoFragment, "onStart() : repo iniciado")
+        toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.d(repoFragment, "onDestroy() : Repo destruido")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        mAdapter.attachListener(mListener)
-        mViewModel.list(page)
+        mViewModel.list.value?.clear()
     }
 
     override fun onCreateView(
@@ -112,6 +102,12 @@ class RepositoriesFragment : Fragment() {
     ): View? {
 
         return inflater.inflate(R.layout.fragment_repositories, container, false)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mAdapter.attachListener(mListener)
+        mViewModel.list(page)
     }
 
 
